@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ironsworn RPG Companion</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/map.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ironsworn RPG Companion</h1>
+            <p class="app-description">Your digital companion for the Ironlands</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="character">
+                <i class="fas fa-user"></i> Character
+            </div>
+            <div class="tab" data-tab="characters">
+                <i class="fas fa-users"></i> Characters
+            </div>
+            <div class="tab" data-tab="map">
+                <i class="fas fa-map"></i> Map
+            </div>
+            <div class="tab" data-tab="locations">
+                <i class="fas fa-landmark"></i> Locations
+            </div>
+            <div class="tab" data-tab="progress">
+                <i class="fas fa-tasks"></i> Progress
+            </div>
+        </div>
+        
+        <div class="tab-content active" id="character-tab">
+            <!-- Player Character content remains the same -->
+            <div class="character-details">
+                <div class="character-section">
+                    <h3>Character Info</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Name:</span>
+                        <span class="stat-value editable" id="char-name" contenteditable="true">Aelar Stonehand</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Background:</span>
+                        <span class="stat-value" id="char-background">Outcast</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Vow:</span>
+                        <span class="stat-value" id="char-vow">Find the Lost Crown of Iron</span>
+                    </div>
+                </div>
+                
+                <div class="character-section">
+                    <h3>Stats</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Edge:</span>
+                        <span class="stat-value" id="stat-edge">2</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Heart:</span>
+                        <span class="stat-value" id="stat-heart">3</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Iron:</span>
+                        <span class="stat-value" id="stat-iron">2</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Shadow:</span>
+                        <span class="stat-value" id="stat-shadow">1</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Wits:</span>
+                        <span class="stat-value" id="stat-wits">2</span>
+                    </div>
+                </div>
+                
+                <div class="character-section">
+                    <h3>Assets</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Weapon:</span>
+                        <span class="stat-value">Iron Sword</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Armor:</span>
+                        <span class="stat-value">Leather Armor</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Companion:</span>
+                        <span class="stat-value">None</span>
+                    </div>
+                </div>
+                
+                <div class="character-section">
+                    <h3>Momentum & Health</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Momentum:</span>
+                        <div class="momentum-controls">
+                            <span class="stat-value" id="momentum-value">+2</span>
+                            <div class="momentum-buttons">
+                                <button class="btn btn-primary momentum-increase">+</button>
+                                <button class="btn btn-danger momentum-reset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Health:</span>
+                        <span class="stat-value">5</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Spirit:</span>
+                        <span class="stat-value">5</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Supply:</span>
+                        <span class="stat-value">5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="characters-tab">
+            <div class="characters-container">
+                <h2>NPC Characters</h2>
+                <div class="characters-controls">
+                    <button class="btn btn-success" id="add-character-btn">
+                        <i class="fas fa-plus"></i> Add New Character
+                    </button>
+                </div>
+                <div class="characters-list" id="characters-list">
+                    <!-- Characters will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+        
+<div class="tab-content" id="map-tab">
+    <div class="map-container">
+        <h2>Your Journey Map</h2>
+        <div class="map-controls">
+            <button class="btn btn-primary" id="add-marker-btn">
+                <i class="fas fa-plus"></i> Add Location Marker
+            </button>
+            <button class="btn btn-primary" id="measure-distance-btn">
+                <i class="fas fa-ruler"></i> Measure Distance
+            </button>
+            <button class="btn btn-primary" id="color-hexagon-btn">
+                <i class="fas fa-brush"></i> Color Hexagon
+            </button>
+            <button class="btn btn-danger" id="clear-markers-btn">
+                <i class="fas fa-trash"></i> Clear All Markers
+            </button>
+            <div class="zoom-controls">
+                <button class="btn btn-primary" id="zoom-in">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="btn btn-primary" id="zoom-out">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="btn btn-primary" id="reset-zoom">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="map-wrapper">
+            <div class="map-image-container" id="map-container">
+                <img src="images/HexMap.jpg" alt="Ironsworn Map" class="map-image" id="main-map">
+                <div class="map-markers" id="map-markers"></div>
+                <div class="map-measurements" id="map-measurements"></div>
+                <div class="map-hexagons" id="map-hexagons"></div>
+                <div class="map-scale" id="map-scale">
+                    <div class="scale-bar" id="scale-bar"></div>
+                    <div class="scale-label" id="scale-label">100 miles</div>
+                </div>
+            </div>
+        </div>
+        <div class="zoom-info">
+            Zoom: <span id="zoom-level">100%</span>
+        </div>
+        <div class="measurement-info" id="measurement-info" style="display: none;">
+            <div class="measurement-result">
+                Distance: <span id="measurement-distance">0</span> miles
+                <button class="btn btn-danger btn-sm" id="clear-measurement">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="hexagon-info" id="hexagon-info" style="display: none;">
+            <div class="hexagon-result">
+                Selected Hexagon: <span id="hexagon-coords">0,0</span>
+                <button class="btn btn-danger btn-sm" id="clear-hexagon">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+        
+        <div class="tab-content" id="locations-tab">
+            <!-- Locations content remains the same -->
+            <div class="locations-container">
+                <h2>Location Journal</h2>
+                <div class="locations-controls">
+                    <button class="btn btn-success" id="add-location-btn">
+                        <i class="fas fa-plus"></i> Add New Location
+                    </button>
+                </div>
+                <div class="locations-list" id="locations-list">
+                    <!-- Locations will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="progress-tab">
+            <!-- Progress content remains the same -->
+            <h2 style="color: var(--color-gold); text-align: center; margin-bottom: 15px; border-bottom: 1px solid var(--color-rust); padding-bottom: 10px;">Progress Tracker</h2>
+            <p style="text-align: center; margin-bottom: 20px; font-style: italic;">Track your progress on vows, journeys, and other endeavors</p>
+            
+            <div class="progress-tracker" id="progress-tracker">
+                <!-- Tracks will be dynamically generated -->
+            </div>
+            
+            <div class="add-track-container">
+                <button class="btn btn-success" id="add-new-track">Add New Track</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="map-tab">
+    <div class="map-container">
+        <h2>Your Journey Map</h2>
+        <div class="map-controls">
+            <button class="btn btn-primary" id="add-marker-btn">
+                <i class="fas fa-plus"></i> Add Location Marker
+            </button>
+            <button class="btn btn-primary" id="measure-distance-btn">
+                <i class="fas fa-ruler"></i> Measure Distance
+            </button>
+            <button class="btn btn-danger" id="clear-markers-btn">
+                <i class="fas fa-trash"></i> Clear All Markers
+            </button>
+            <div class="zoom-controls">
+                <button class="btn btn-primary" id="zoom-in">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="btn btn-primary" id="zoom-out">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="btn btn-primary" id="reset-zoom">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="map-wrapper">
+            <div class="map-image-container" id="map-container">
+                <img src="images/HexMap.jpg" alt="Ironsworn Map" class="map-image" id="main-map">
+                <div class="map-markers" id="map-markers"></div>
+                <div class="map-measurements" id="map-measurements"></div>
+                <div class="map-scale" id="map-scale">
+                    <div class="scale-bar" id="scale-bar"></div>
+                    <div class="scale-label" id="scale-label">100 miles</div>
+                </div>
+            </div>
+        </div>
+        <div class="zoom-info">
+            Zoom: <span id="zoom-level">100%</span>
+        </div>
+        <div class="measurement-info" id="measurement-info" style="display: none;">
+            <div class="measurement-result">
+                Distance: <span id="measurement-distance">0</span> miles
+                <button class="btn btn-danger btn-sm" id="clear-measurement">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Marker Popover Modal -->
+    <div class="modal" id="marker-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Location Details</h3>
+                <button class="modal-close" id="close-marker-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="marker-name">Location Name:</label>
+                    <input type="text" id="marker-name" class="form-input" placeholder="Enter location name">
+                </div>
+                <div class="form-group">
+                    <label for="marker-notes">Notes:</label>
+                    <textarea id="marker-notes" class="form-textarea" placeholder="Enter notes about this location"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="marker-type">Location Type:</label>
+                    <select id="marker-type" class="form-select">
+                        <option value="settlement">Settlement</option>
+                        <option value="landmark">Landmark</option>
+                        <option value="danger">Danger</option>
+                        <option value="resource">Resource</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="delete-marker">Delete</button>
+                <button class="btn btn-primary" id="save-marker">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Editor Modal -->
+    <div class="modal" id="location-modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>Location Journal Entry</h3>
+                <button class="modal-close" id="close-location-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="location-name">Location Name:</label>
+                        <input type="text" id="location-name" class="form-input" placeholder="Enter location name">
+                    </div>
+                    <div class="form-group">
+                        <label for="location-type">Location Type:</label>
+                        <select id="location-type" class="form-select">
+                            <option value="settlement">Settlement</option>
+                            <option value="landmark">Landmark</option>
+                            <option value="danger">Danger</option>
+                            <option value="resource">Resource</option>
+                            <option value="mystery">Mystery</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="location-notes">Notes:</label>
+                    <textarea id="location-notes" class="form-textarea" placeholder="Quick notes about this location..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="location-description">Description:</label>
+                    <textarea id="location-description" class="form-textarea" placeholder="Describe this location..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="location-characters">Notable Characters:</label>
+                    <textarea id="location-characters" class="form-textarea" placeholder="List notable characters found here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="location-events">Significant Events:</label>
+                    <textarea id="location-events" class="form-textarea" placeholder="Record significant events that happened here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="location-resources">Resources & Threats:</label>
+                    <textarea id="location-resources" class="form-textarea" placeholder="Note available resources or threats..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="location-quests">Related Quests:</label>
+                    <textarea id="location-quests" class="form-textarea" placeholder="Note quests related to this location..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="delete-location">Delete Location</button>
+                <button class="btn btn-primary" id="save-location">Save Location</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Character Editor Modal -->
+    <div class="modal" id="character-modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>Character Details</h3>
+                <button class="modal-close" id="close-character-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="character-name">Character Name:</label>
+                        <input type="text" id="character-name" class="form-input" placeholder="Enter character name">
+                    </div>
+                    <div class="form-group">
+                        <label for="character-role">Role:</label>
+                        <select id="character-role" class="form-select">
+                            <option value="ally">Ally</option>
+                            <option value="enemy">Enemy</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="contact">Contact</option>
+                            <option value="rival">Rival</option>
+                            <option value="mentor">Mentor</option>
+                            <option value="vendor">Vendor</option>
+                            <option value="guardian">Guardian</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="character-disposition">Disposition:</label>
+                        <select id="character-disposition" class="form-select">
+                            <option value="friendly">Friendly</option>
+                            <option value="helpful">Helpful</option>
+                            <option value="suspicious">Suspicious</option>
+                            <option value="hostile">Hostile</option>
+                            <option value="fearful">Fearful</option>
+                            <option value="indifferent">Indifferent</option>
+                            <option value="curious">Curious</option>
+                            <option value="protective">Protective</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="character-location">Associated Location:</label>
+                        <select id="character-location" class="form-select">
+                            <option value="">None</option>
+                            <!-- Locations will be populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="character-goal">Goal or Motivation:</label>
+                    <textarea id="character-goal" class="form-textarea" placeholder="What does this character want? What drives them?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="character-details">Appearance & Details:</label>
+                    <textarea id="character-details" class="form-textarea" placeholder="Physical description, personality traits, mannerisms..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="character-backstory">Backstory & Connections:</label>
+                    <textarea id="character-backstory" class="form-textarea" placeholder="Background, history, connections to other characters..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="character-notes">Notes:</label>
+                    <textarea id="character-notes" class="form-textarea" placeholder="Additional notes, quests, interactions..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="delete-character">Delete Character</button>
+                <button class="btn btn-primary" id="save-character">Save Character</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/map.js"></script>
+    <script src="scripts/index.js"></script>
+</body>
+</html>

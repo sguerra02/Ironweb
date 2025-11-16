@@ -1,0 +1,403 @@
+/* Map Container Styles */
+.map-container {
+    text-align: center;
+}
+
+.map-container h2 {
+    color: var(--color-gold);
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid var(--color-rust);
+    padding-bottom: 10px;
+}
+
+.map-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.zoom-controls {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.zoom-controls .btn {
+    padding: 8px 12px;
+}
+
+.zoom-info {
+    margin-top: 10px;
+    text-align: center;
+    color: var(--color-parchment-dark);
+    font-style: italic;
+}
+
+/* Map Wrapper and Image Styles */
+.map-wrapper {
+    position: relative;
+    overflow: auto;
+    border: 2px solid var(--color-rust);
+    border-radius: 8px;
+    background: var(--color-darker);
+    max-height: 70vh;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.map-wrapper:active {
+    cursor: grabbing;
+}
+
+.map-image-container {
+    position: relative;
+    display: inline-block;
+    transform-origin: 0 0;
+    transition: transform 0.1s ease;
+    min-width: 100%; /* Ensure container doesn't shrink below viewport */
+}
+
+.map-image {
+    max-width: none;
+    height: auto;
+    display: block;
+}
+
+/* Map Scale Styles */
+.map-scale {
+    position: absolute;
+    top: 90%; /* Position 90% from the top of the map image */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center the scale bar itself */
+    background: rgba(26, 18, 0, 0.8);
+    border: 1px solid var(--color-rust);
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: var(--color-parchment);
+    font-family: 'Cinzel', serif;
+    z-index: 50;
+    backdrop-filter: blur(2px);
+    min-width: 100px;
+    text-align: center;
+}
+
+.scale-bar {
+    height: 4px;
+    background: linear-gradient(to right, var(--color-rust), var(--color-gold));
+    margin-bottom: 4px;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(139, 69, 19, 0.5);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.scale-label {
+    font-size: 0.8em;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.scale-ticks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+}
+
+.scale-tick {
+    width: 1px;
+    height: 6px;
+    background: var(--color-parchment);
+}
+
+.scale-tick.major {
+    height: 10px;
+}
+
+/* Map Marker Styles */
+.map-markers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.map-marker {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--color-gold);
+    border: 2px solid var(--color-rust);
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s ease;
+    z-index: 60; /* Higher than scale z-index */
+    pointer-events: auto;
+}
+
+.map-marker:hover {
+    transform: translate(-50%, -50%) scale(1.3);
+    background: var(--color-rust-light);
+}
+
+.map-marker::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--color-parchment);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Measurement System Styles */
+.map-measurements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 40;
+}
+
+.measurement-line {
+    stroke: var(--color-gold);
+    stroke-width: 2;
+    stroke-dasharray: 5, 5;
+    filter: drop-shadow(0 0 2px rgba(184, 134, 11, 0.8));
+}
+
+.measurement-point {
+    fill: var(--color-rust);
+    stroke: var(--color-parchment);
+    stroke-width: 2;
+    r: 6;
+    filter: drop-shadow(0 0 3px rgba(139, 69, 19, 0.8));
+}
+
+.measurement-info {
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--color-wood);
+    border: 1px solid var(--color-rust);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.measurement-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: var(--color-parchment);
+    font-weight: bold;
+}
+
+.measurement-result span {
+    color: var(--color-gold);
+    font-size: 1.1em;
+}
+
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 0.8em;
+}
+
+/* Active measurement state */
+.measuring-active {
+    cursor: crosshair;
+}
+
+.measuring-active .map-image {
+    cursor: crosshair;
+}
+
+/* Measurement instructions */
+.measurement-instructions {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(26, 18, 0, 0.9);
+    border: 1px solid var(--color-gold);
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: var(--color-parchment);
+    font-size: 0.9em;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+    text-align: center;
+}
+
+.measurement-instructions .step {
+    margin: 5px 0;
+    color: var(--color-gold);
+    font-weight: bold;
+}
+
+/* Ensure measurement elements are above markers but below modal overlays */
+.map-measurements {
+    z-index: 45;
+}
+
+.map-marker {
+    z-index: 50;
+}
+
+
+/* Hexagon Grid System Styles */
+.map-hexagons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 30;
+}
+
+.hexagon-overlay {
+    stroke: rgba(184, 134, 11, 0.3);
+    stroke-width: 1;
+    fill: none;
+    pointer-events: none;
+}
+
+.hexagon-highlight {
+    fill: rgba(0, 100, 255, 0.3);
+    stroke: rgba(0, 100, 255, 0.7);
+    stroke-width: 2;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.hexagon-info {
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--color-wood);
+    border: 1px solid var(--color-rust);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.hexagon-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: var(--color-parchment);
+    font-weight: bold;
+}
+
+.hexagon-result span {
+    color: var(--color-gold);
+    font-size: 1.1em;
+}
+
+/* Active hexagon coloring state */
+.hexagon-coloring-active {
+    cursor: crosshair;
+}
+
+.hexagon-coloring-active .map-image {
+    cursor: crosshair;
+}
+
+/* Hexagon instructions */
+.hexagon-instructions {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(26, 18, 0, 0.9);
+    border: 1px solid var(--color-gold);
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: var(--color-parchment);
+    font-size: 0.9em;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+    text-align: center;
+}
+
+.hexagon-instructions .step {
+    margin: 5px 0;
+    color: var(--color-gold);
+    font-weight: bold;
+}
+
+/* Mobile adjustments for hexagon system */
+@media (max-width: 768px) {
+    .hexagon-result {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .hexagon-instructions {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        font-size: 0.8em;
+    }
+}
+
+/* Mobile adjustments for map */
+@media (max-width: 768px) {
+    .map-controls {
+        flex-direction: column;
+    }
+    
+    .map-scale {
+        padding: 6px 10px;
+        top: 88%; /* Slightly adjust for mobile */
+    }
+    
+    .scale-label {
+        font-size: 0.7em;
+    }
+    
+    .measurement-result {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .measurement-instructions {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-scale {
+        padding: 4px 8px;
+        top: 85%; /* Further adjust for very small screens */
+    }
+    
+    .scale-bar {
+        height: 3px;
+    }
+    
+    .map-marker {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .map-marker::after {
+        width: 6px;
+        height: 6px;
+    }
+}
